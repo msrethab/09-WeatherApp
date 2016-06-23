@@ -1,0 +1,37 @@
+
+
+/* Styling Header */
+
+header{
+	padding: 10px 5%;
+	background-color: #ddd;
+	margin-bottom: 20px;
+}
+
+h1{
+	font-size: 4em;
+
+}
+
+/* Styling Search Bar */
+
+.searchBar{
+	margin-bottom: 20px;
+}
+
+/* Styling Panels */
+
+p{
+	font-weight: bold;
+
+}
+
+.cityDescription{
+	text-align: center;
+
+}
+
+.weatherDescription{
+	text-align: center;
+
+}

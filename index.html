@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="weatherApp">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Weather App</title>
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="bower_components/toastr/toastr.css" />
+    <!-- endbower -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="/app/styles/styles.css">
+    <!-- endinject -->
+</head>
+
+<body ng-controller="WeatherController as vm">
+    <!-- bower:js -->
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="bower_components/toastr/toastr.js"></script>
+    <!-- endbower -->
+
+    <!-- Creating banner Header -->
+
+	<div class="container">
+	    <header>
+	        <h1>Origin Weather Application</h1>
+	        <h3>Always know if you'll need an umbrella!</h3>
+	    </header>
+    </div>
+
+    <!-- Creating container for search fields and weather data -->
+
+	<div class="container">
+
+		<!-- Creating buttons for preset searches -->
+
+	    <div class="input-group-btn button">
+					<button type="button" class="btn btn-primary button" ng-click="vm.getWeatherInfo('San Diego')">San Diego</button>
+					<button type="button" class="btn btn-primary button" ng-click="vm.getWeatherInfo('New York')">New York</button>
+					<button type="button" class="btn btn-primary button" ng-click="vm.getWeatherInfo('Washington DC')">Washington DC</button>
+					<button type="button" class="btn btn-primary button" ng-click="vm.getWeatherInfo('London')">London</button>
+					<button type="button" class="btn btn-primary button" ng-click="vm.getWeatherInfo('Tokyo')">Tokyo</button>
+		</div>
+
+		<!-- Creating search bar with inline submit button -->
+
+		<div class="input-group searchBar">
+	      <input type="text" class="form-control" ng-model="vm.citySearchName" placeholder="Enter your city">
+	      <span class="input-group-btn">
+	        <button class="btn btn-secondary" type="button" ng-click="vm.getWeatherInfo(vm.citySearchName)">Go!</button>
+	      </span>
+	    </div>
+
+		<!-- Creating 2 panels to house weather info on one side and search history table on the other side -->
+
+	    <div class="row">
+		    <div class="col-xs-6">
+				<div class="panel panel-info cityPanel">
+			  		<div class="panel-heading">City Information</div>
+			  		<div class="panel-body">
+			  			<div class="panel cityDescription">
+			  				<h2><img ng-src="http://openweathermap.org/img/w/{{vm.weatherInfo.weather[0].icon}}.png"> {{vm.weatherInfo.name}}</h2>
+							<p>Lat/Long: {{vm.weatherInfo.coord.lat}}, {{vm.weatherInfo.coord.lon}}</p>
+						</div>
+						<div class="weatherDescription">
+							<div class="row">
+								<div class="panel col-xs-4">
+									<h4>Temperature (F)</h4>
+									<h3>{{vm.weatherInfo.main.temp}} &degF</h3>
+								</div>
+								<div class="panel col-xs-4">
+									<h4>Pressure</h4>
+									<h3>{{vm.weatherInfo.main.pressure}} hPa</h3>
+								</div>
+								<div class="panel col-xs-4">
+									<h4>Humidity</h4>
+									<h3>{{vm.weatherInfo.main.humidity}} %</h3>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-xs-4">
+									<h4>Lowest Temp (F)</h4>
+									<h3>{{vm.weatherInfo.main.temp_min}} &degF</h3>
+								</div>
+								<div class="col-xs-4">
+									<h4>Highest Temp (F)</h4>
+									<h3>{{vm.weatherInfo.main.temp_max}} &degF</h3>
+								</div>
+								<div class="col-xs-4">
+									<h4>Wind Speed</h4>
+									<h3>{{vm.weatherInfo.wind.speed}} m/s</h3>					
+								</div>
+							</div>
+						</div>
+			  		</div>
+				</div>
+			</div>
+			<div class="col-xs-6">
+				<div class="panel panel-info searchPanel">
+			  		<div class="panel-heading">Search History</div>
+			  		<div class="panel-body">
+			  			<table class="table table-striped">
+			  				<thead>
+			  					<th class="col-xs-9">Name</th>
+			  					<th class="col-xs-3">Search time</th>
+			  				</thead>
+			  				<tbody ng-repeat="searches in vm.searchHistory">
+			  					<td>{{searches.name}}</td>
+			  					<td>{{searches.date | date: 'MM/d/yy HH:mm:ss'}}</td>
+			  				</tbody>	
+						</table>
+			  		</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+        <!-- inject:js -->
+        <script src="/app/app.js"></script>
+        <script src="/app/weather/weather.controller.js"></script>
+        <script src="/app/weather/weather.factory.js"></script>
+        <!-- endinject -->
+</body>
+
+</html>
